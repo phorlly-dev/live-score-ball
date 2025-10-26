@@ -1,0 +1,6 @@
+{
+    "watch": ["src"],
+    "ext": "js,mjs,cjs,json",
+    "ignore": ["node_modules", ".git", "firebase-debug.log", "package-lock.json", "*.log"],
+    "exec": "node --experimental-json-modules src/server.js"
+}
