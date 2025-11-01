@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import { setGlobalOptions } from "firebase-functions";
 import { syncStaticData } from "./jobs/static-sync.js";
-import { startLiveSynServer } from "./jobs/live-sync.js";
+import { startLiveOnLocal, startLiveSynServer } from "./jobs/live-sync.js";
 import { destroyAll, setTitle } from "./utils/crud.js";
 
 // Express setup
@@ -22,13 +22,14 @@ app.get("/sync-static", async (_req, res) => {
 
 app.get("/clear", async (_req, res) => {
     await destroyAll();
-    res.send(setTitle("✅ Clear All Data."));
+    res.send(setTitle("✅ All Data Cleared."));
 });
 
 // Start live sync automatically
 // startLiveSyncLocal();
 app.get("/sync", (_req, res) => {
-    startLiveSynServer();
+    // startLiveSynServer();
+    startLiveOnLocal();
     res.send(setTitle("✅ Sync Completed."));
 });
 
