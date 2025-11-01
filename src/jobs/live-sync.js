@@ -1,4 +1,4 @@
-import { fetchAndStore, syncStandings } from "../utils/crud.js";
+import { delay, fetchAndStore, syncStandings } from "../utils/crud.js";
 import { schedule } from "node-cron";
 
 const START_LIVE = {
@@ -20,6 +20,7 @@ const START_LIVE = {
         const today = new Date().toISOString().split("T")[0];
         console.log(`[LIVE SYNC] Updating for ${today}`);
         await fetchAndStore("/games/allscores", "live/games", `?sports=1&startDate=${today}&endDate=${today}`);
+        await delay(16000);
         await syncStandings();
         console.log("✅ Live data updated");
     },

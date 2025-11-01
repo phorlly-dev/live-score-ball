@@ -27,7 +27,7 @@ app.get("/clear", async (_req, res) => {
 
 // Start live sync automatically
 // startLiveSyncLocal();
-app.get("/sync", async (_req, res) => {
+app.get("/sync", (_req, res) => {
     startLiveSynServer();
     res.send("<h3 style='text-align: center'>✅ Sync Completed.!</h3>");
 });

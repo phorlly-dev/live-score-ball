@@ -105,7 +105,7 @@ const SYNC_DATA = {
             }
 
             // Prevent rate-limit issues
-            await delay(1000);
+            await delay(1600);
         }
     },
     delay(ms) {
