@@ -52,13 +52,16 @@ app.get("/sync", async (_req, res) => {
 schedule("*/1 * * * *", async () => {
     try {
         const response = await axios.get(API_URL, {
-            headers: { "x-apisports-key": API_KEY },
+            // headers: { "x-apisports-key": API_KEY },
+            headers: { "x-rapidapi-key": API_KEY, "x-rapidapi-host": "v3.football.api-sports.io" },
         });
 
         const matches = response.data.response;
-        const ref = db.ref("matches");
+        // const ref = db.ref("matches");
+        const ref = db.ref("leagues");
 
         if (!matches || matches.length === 0) {
+            console.log("API Response:", response.data);
             console.log("⚪ No live matches currently");
             return;
         }
@@ -73,8 +76,25 @@ schedule("*/1 * * * *", async () => {
     }
 });
 
-app.get("/", (_req, res) => {
+const options = {
+    method: "GET",
+    url: "https://api-football-v1.p.rapidapi.com/v3/leagues",
+    headers: {
+        "x-rapidapi-key": "59d734a883msh4ea11d7198bd66cp1691c3jsn53b7534f0260",
+        "x-rapidapi-host": "https://api-football-v1.p.rapidapi.com/v3",
+    },
+};
+
+app.get("/", async (req, res) => {
     res.send("⚽ Live Score API is running...");
+    try {
+        const response = await axios.request(options);
+        console.log(response.data);
+        res.json(response.data);
+    } catch (err) {
+        console.error("Error fetching data:", err.message);
+        res.status(500).json({ error: "Failed to fetch leagues" });
+    }
 });
 
 module.exports = app;
