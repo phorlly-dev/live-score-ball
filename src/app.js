@@ -17,7 +17,7 @@ app.get("/", (_req, res) => res.send("<h3 style='text-align: center'>⚽ Live Sc
 // Manual trigger for static sync
 app.get("/sync-static", async (_req, res) => {
     await syncStaticData();
-    res.send("✅ Static data refreshed");
+    res.send("✅ Static Data Refreshed");
 });
 
 app.get("/clear", async (_req, res) => {
@@ -28,8 +28,8 @@ app.get("/clear", async (_req, res) => {
 // Start live sync automatically
 // startLiveSyncLocal();
 app.get("/sync", async (_req, res) => {
-    await startLiveSynServer();
-    res.send("<h3 style='text-align: center'>✅ Sync Completed!!</h3>");
+    startLiveSynServer();
+    res.send("<h3 style='text-align: center'>✅ Sync Completed.!</h3>");
 });
 
 export default app;
