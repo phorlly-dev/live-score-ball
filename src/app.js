@@ -3,7 +3,7 @@ import express from "express";
 import { setGlobalOptions } from "firebase-functions";
 import { syncStaticData } from "./jobs/static-sync.js";
 import { startLiveSynServer } from "./jobs/live-sync.js";
-import { destroyAll } from "./utils/crud.js";
+import { destroyAll, setTitle } from "./utils/crud.js";
 
 // Express setup
 const app = express();
@@ -12,24 +12,24 @@ app.use(express.json());
 setGlobalOptions({ maxInstances: 10 });
 
 //START APP
-app.get("/", (_req, res) => res.send("<h3 style='text-align: center'>⚽ Live Score API running on Vercel!</h3>"));
+app.get("/", (_req, res) => res.send(setTitle("⚽ Live Score API running on Vercel!")));
 
 // Manual trigger for static sync
 app.get("/sync-static", async (_req, res) => {
     await syncStaticData();
-    res.send("✅ Static Data Refreshed");
+    res.send(setTitle("✅ Static Data Refreshed"));
 });
 
 app.get("/clear", async (_req, res) => {
     await destroyAll();
-    res.send("✅ Clear All Data.");
+    res.send(setTitle("✅ Clear All Data."));
 });
 
 // Start live sync automatically
 // startLiveSyncLocal();
 app.get("/sync", (_req, res) => {
     startLiveSynServer();
-    res.send("<h3 style='text-align: center'>✅ Sync Completed.!</h3>");
+    res.send(setTitle("✅ Sync Completed."));
 });
 
 export default app;

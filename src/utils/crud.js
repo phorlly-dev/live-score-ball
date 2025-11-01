@@ -111,6 +111,9 @@ const SYNC_DATA = {
     delay(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
     },
+    setTitle(title) {
+        return `<h1 style="text-align: center; font-family: 'Gill Sans Extrabold', sans-serif; margin: 2rem">${title}</h1>`;
+    },
 };
 
-export const { fetchAndStore, writeUnique, updateLiveGames, destroyAll, syncStandings, delay } = SYNC_DATA;
+export const { fetchAndStore, writeUnique, updateLiveGames, destroyAll, syncStandings, delay, setTitle } = SYNC_DATA;
