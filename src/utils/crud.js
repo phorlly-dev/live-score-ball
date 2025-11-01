@@ -1,7 +1,6 @@
 import axios from "axios";
 import { db } from "../config/firebase.js";
 import { ENV } from "../config/env.js";
-import { getCompetitionIds } from "./competition_ids.js";
 
 const SYNC_DATA = {
     async fetchAndStore(endpoint, path, query = "") {
@@ -91,7 +90,8 @@ const SYNC_DATA = {
         }
     },
     async syncStandings() {
-        const competitions = await getCompetitionIds();
+        // const competitions = await getCompetitionIds();
+        const competitions = [7, 11, 17, 25, 35, 552, 572, 573, 73, 57, 649];
         for (const id of competitions) {
             const res = await axios.get(`${ENV.BASE_URL}/standings/?competitions=${id}&withSeasonsFilter=false`);
             const data = res.data;

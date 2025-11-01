@@ -2,7 +2,7 @@ import cors from "cors";
 import express from "express";
 import { setGlobalOptions } from "firebase-functions";
 import { syncStaticData } from "./jobs/static-sync.js";
-import { startLiveOnLocal } from "./jobs/live-sync.js";
+import { startLiveInLocal, startLiveOnServer } from "./jobs/live-sync.js";
 import { destroyAll, setTitle } from "./utils/crud.js";
 
 // Express setup
@@ -26,8 +26,9 @@ app.get("/clear", async (_req, res) => {
 });
 
 // Start live sync automatically
+// startLiveInLocal();
 app.get("/sync", (_req, res) => {
-    startLiveOnLocal();
+    startLiveOnServer();
     res.send(setTitle("✅ Sync Completed."));
 });
 
